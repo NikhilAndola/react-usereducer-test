@@ -10,11 +10,26 @@ export default function App() {
   const reducer = (state, action) => {
     switch (action.type) {
       case 'increment':
-        return { count: state.count + 1 };
+        return {
+          ...state,
+          count: state.count + 1,
+        };
+      case 'reset':
+        return {
+          ...state,
+          count: (state.count = 0),
+        };
       case 'readyState':
-        return { isReady: !state.isReady };
+        return {
+          ...state,
+          isReady: (state.isReady = !state.isReady),
+        };
       default:
-        return { count: state.count, isReady: state.isReady };
+        return {
+          ...state,
+          count: state.count,
+          isReady: state.isReady,
+        };
     }
   };
 
@@ -35,6 +50,7 @@ export default function App() {
       <button onClick={() => dispatch({ type: 'readyState' })}>
         Toggle ready state
       </button>
+      <button onClick={() => dispatch({ type: 'reset' })}>reset number</button>
     </div>
   );
 }
